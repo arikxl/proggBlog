@@ -1,11 +1,17 @@
-import React, { useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 
-const categories = [
-    { id: 1001, name: 'CSS', slug: 'css' }, { id: 1002, name: 'React', slug: 'react' }
-];
+import { getCategories } from '../services';
 
 const AppHeader = () => {
+
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        getCategories()
+            .then((newCategories) => setCategories(newCategories))
+    }, [])
+
     return (
         <header className="container mx-auto px-10 mb-8">
             <div className='border-b w-full inline-block border-blue-400 py-8'>
@@ -26,7 +32,6 @@ const AppHeader = () => {
                         </Link>
                     ))}
                 </div>
-
             </div>
         </header>
     )
